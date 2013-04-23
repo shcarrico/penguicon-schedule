@@ -15,7 +15,6 @@ steal(
 
 				model.findAll()
 					.then(function (nodes) {
-						console.log($el)
 						$el.find('#NavBar').append(template({nodes:nodes}));
 					})
 					.fail(function () {

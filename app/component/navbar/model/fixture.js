@@ -7,13 +7,17 @@ steal("can",
 		can.fixture(url.nav, function () {
 				return [
 					{
-						name: 'Employees',
-						route: '/employees'
+						name: 'Friday',
+						route: '/friday'
 					},
 					{
-						name: 'Foo',
-						route: '/foo'
-					}
+						name: 'Saturday',
+						route: '/saturday'
+					},
+                    {
+                        name: 'Sunday',
+                        route: '/sunday'
+                    }
 				];
 			})
 	}

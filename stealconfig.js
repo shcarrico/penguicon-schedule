@@ -3,13 +3,16 @@ steal.config({
 	map : {
 		"*" : {
 			"can" : "lib/canjs",
-			"jquery/jquery.js" : "lib/jquery-1.9.1-dev.js"
+			"jquery/jquery.js" : "jquery",
+            "lodash/lodash.js" : "lodash",
+            "moment/moment.js" : "moment"
 		}
 	},
 	paths: {
 		"lodash": "lib/lodash.compat-dev.js",
 		"jquery": "lib/jquery-1.9.1-dev.js",
-		"can" : "lib/canjs/can.js"
+		"can" : "lib/canjs/can.js",
+        "moment" : "lib/moment.min.js"
 	},
 	shim: {
 		jquery: {
