@@ -64,6 +64,9 @@ steal(
                                 getEvent: function (key) {
                                     key = String(key);
                                     var events = day[dayStr]["by"+can.capitalize(viewBy)][key];
+                                    if(typeof events === "undefined"){
+                                        events = [];
+                                    }
                                     return eventTpl.render({evt: events})
                                 }
                             });

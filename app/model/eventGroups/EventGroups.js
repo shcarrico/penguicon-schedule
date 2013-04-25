@@ -36,8 +36,8 @@ steal(
 
                 data.days = _.keys(data.day);
                 data.names = names;
-                data.locations = _.unique(_.map(events,"location"));
-                data.tracks = _.unique(_.map(events,"track"));
+                data.locations = _.unique(_.map(events,"location")).sort();
+                data.tracks = _.unique(_.map(events,"track")).sort();
 
                 def.resolve(events, data);
             });
