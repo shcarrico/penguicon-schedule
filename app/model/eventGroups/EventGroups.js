@@ -12,7 +12,7 @@ steal(
 
                 var dayev,days,day,data,names;
 
-                names = {'Apr-26':'Friday', 'Apr-27': 'Saturday', 'Apr-28': 'Sunday'};
+                names = {'Apr-26':'friday', 'Apr-27': 'saturday', 'Apr-28': 'sunday'};
 
                 events = _.forEach(events,function(node){
                     if(node.hasOwnProperty('book description')){
@@ -35,6 +35,7 @@ steal(
                 }
 
                 data.days = _.keys(data.day);
+                data.names = names;
                 data.locations = _.unique(_.map(events,"location"));
                 data.tracks = _.unique(_.map(events,"track"));
 
