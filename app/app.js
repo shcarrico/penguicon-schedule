@@ -1,7 +1,11 @@
-steal(
-	'app/control/root',
+steal("jquery")
 
-	//return global namespaces or modify existing ones
+    .then(
+    "lib/bootstrap.min.js",
+    "css/bootstrap.min.css")
+
+    .then(
+	'app/control/root',
 	'can',
 	'app/bootstrap.js',
 	'app/plugins',
