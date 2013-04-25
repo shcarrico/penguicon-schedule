@@ -20,9 +20,8 @@ steal(
 
                 this.on();
 
-                this.setLoading();
+
                 _.defer($.proxy(this.updateView,this));
-                this.updateView();
 
                 this.options.places = {
                     "salon_a": "Salon A",
@@ -54,10 +53,12 @@ steal(
 
             setLoading : function(){
                 this.element.addClass('loading');
+                this.element.find('.list').empty();
             },
 
             updateView : function(){
                 var self = this;
+                this.setLoading();
 
                 EventGroups().then(function (events, data) {
 
@@ -87,6 +88,11 @@ steal(
                                     }
                                     return "_accordion" + accordionIdx;
                                 },
+                                showMap : function(location){
+                                    if (self.options.viewBy() == 'location') {
+                                        return '<button data-location="'+location+'" class="btn btn-mini btn-info showmap">Map</button>';
+                                    }
+                                },
                                 getEvent: function (key) {
                                     key = String(key);
                                     var events = day[dayStr]["by"+can.capitalize(viewBy)][key];
@@ -102,7 +108,7 @@ steal(
                                             },
                                             showLocation: function(location) {
                                                 if (self.options.viewBy() != 'location') {
-                                                    return '<td class="location nowrap"><button data-location="'+location+'" class="btn btn-small btn-info">'+location+'</a></td>';
+                                                    return '<td class="location nowrap"><button data-location="'+location+'" class="showmap btn btn-small btn-info">'+location+'</button></td>';
                                                 }
                                             },
                                             showTrackHeader: function() {
@@ -204,7 +210,7 @@ steal(
             "day/:day route" : function(day){
                 this.options.day(day['day']);
             },
-            "td.location button click" : function(el){
+            "button.showmap click" : function(el){
                 $('#hotelmap').modal();
                 this.highlightMap(el.data().location);
             }
