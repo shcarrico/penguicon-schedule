@@ -154,6 +154,11 @@ nav a:hover {
     padding: 20px 0;
 }
 
+svg {
+    width: 100%;
+    height: 100%;
+}
+
 /* ===============
     ALL: IE Fixes
    =============== */
@@ -238,6 +243,13 @@ nav a:hover {
                 box-shadow: 0 5px 10px #aaa;
     }
 
+    .modal#hotelmap {
+        width: 720px;
+        margin-left: -360px;
+        top: 20px;
+        
+    }
+
 /* ============
     WIDE: Menu
    ============ */
@@ -264,6 +276,7 @@ nav a:hover {
         float: right;
         width: 28%;
     }
+
 }
 
 @media only screen and (min-width: 1140px) {
