@@ -67,7 +67,29 @@ steal(
                                     if(typeof events === "undefined"){
                                         events = [];
                                     }
-                                    return eventTpl.render({evt: events})
+                                    return eventTpl.render({evt: events},
+                                        {
+                                            showLocationHeader: function() {
+                                                if (self.options.viewBy() != 'location') {
+                                                    return '<td class="head">Location</td>';
+                                                }
+                                            },
+                                            showLocation: function(location) {
+                                                if (self.options.viewBy() != 'location') {
+                                                    return '<td>'+location+'</td>';
+                                                }
+                                            },
+                                            showTrackHeader: function() {
+                                                if (self.options.viewBy() != 'track') {
+                                                    return '<td class="head">Track</td>';
+                                                }
+                                            },
+                                            showTrack: function(track) {
+                                                if (self.options.viewBy() != 'track') {
+                                                    return '<td>'+track+'</td>';
+                                                }
+                                            }
+                                        })
                                 }
                             });
                         },
