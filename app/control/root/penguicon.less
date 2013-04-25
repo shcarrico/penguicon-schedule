@@ -6,10 +6,25 @@ header {
   font-weight: bold;
 }
 
+#EventList {
+
+  .loadMsg {
+    display:none;
+  }
+
+  &.loading {
+
+    .loadMsg {
+      display:block;
+    }
+
+  }
+
+}
+
 .event {
 
   table {
-    width: 75%;
 
     @media only screen and (max-width: 480px) {
       width: 100%;
@@ -22,13 +37,26 @@ header {
     vertical-align: top;
     padding : 5px;
     margin : 0 5px;
-    font-size: 80%;
+    font-size: 85%;
+    font-family: Consolas, fixed;
 
     &.head {
-      font-weight: bold;
-      font-size: 60%;
+      font-size: 70%;
+      font-family : inherit;
+      color : #777;
       text-transform: uppercase;
-      text-decoration: underline;
+    }
+
+    &.nowrap {
+      white-space: nowrap;
+    }
+
+    &:nth-child(odd) {
+      background-color : #F0F8FF;
+    }
+
+    &.location {
+      cursor: pointer;
     }
   }
 

@@ -76,7 +76,7 @@ steal(
                                             },
                                             showLocation: function(location) {
                                                 if (self.options.viewBy() != 'location') {
-                                                    return '<td>'+location+'</td>';
+                                                    return '<td class="location nowrap">'+location+'</td>';
                                                 }
                                             },
                                             showTrackHeader: function() {
@@ -86,7 +86,7 @@ steal(
                                             },
                                             showTrack: function(track) {
                                                 if (self.options.viewBy() != 'track') {
-                                                    return '<td>'+track+'</td>';
+                                                    return '<td class="nowrap">'+track+'</td>';
                                                 }
                                             }
                                         })
@@ -122,6 +122,11 @@ steal(
             },
             "day/:day route" : function(day){
                 this.options.day(day['day']);
+            },
+            "td.location click" : function(el){
+                el.popover({
+                    html : '<embed id="svg" style="float:right" type="image/svg+xml" src="penguicon.svg" width="600" height="600" border="1"></embed>'
+                })
             }
         });
     });
