@@ -24,6 +24,32 @@ steal(
                 _.defer($.proxy(this.updateView,this));
                 this.updateView();
 
+                this.options.places = {
+                    "salon_a": "Salon A",
+                    "salon_b": "Salon B",
+                    "salon_c": "Salon C",
+                    "salon_d": "Salon D",
+                    "salon_e": "Salon E",
+                    "oakland_ballroom": "Oakland Ballroom",
+                    "auburn": "Auburn",
+                    "centerpoint": "Centerpoint",
+                    "baldwin": "Baldwin",
+                    "wisner": "Wisner",
+                    "perry": "Perry",
+                    "featherstone": "Featherstone",
+                    "ottawa_ballroom": "Ottawa Ballroom",
+                    "fountain_terrace": "Fountain Terrace",
+                    "boardroom": "Boardroom"
+                };
+
+                this.options.animState = {
+                    id: null,
+                    obj: null,
+                    started: false,
+                    progress: 0,
+                    fillColors: [jQuery.Color("rgba(0,124,250,0.28)"), jQuery.Color("rgba(185,231,81,0.58)")]
+                };
+
             },
 
             setLoading : function(){
@@ -76,7 +102,7 @@ steal(
                                             },
                                             showLocation: function(location) {
                                                 if (self.options.viewBy() != 'location') {
-                                                    return '<td class="location nowrap">'+location+'</td>';
+                                                    return '<td class="location nowrap"><button data-location="'+location+'" class="btn btn-small btn-info">'+location+'</a></td>';
                                                 }
                                             },
                                             showTrackHeader: function() {
@@ -106,6 +132,61 @@ steal(
                 });
             },
 
+            highlightMap : function(id){
+
+                var map = _.invert(this.options.places);
+
+                var animstate = this.options.animState;
+
+                function fadeUpdate() {
+                    var value = this['value'];
+                    animstate.progress = value;
+                    if (animstate.id != null && animstate.obj != null) {
+                        var color = animstate.fillColors[0].transition(animstate.fillColors[1], value);
+                        animstate.obj.css('fill', color.toHexString(false));
+                        animstate.obj.css('fill-opacity', color.alpha());
+                    }
+                }
+                function fadeUp() {
+                    jQuery({value:0.65}).animate({value:1.0}, {
+                        duration: 750,
+                        easing: 'swing',
+                        step: fadeUpdate,
+                        complete: fadeDown
+                    });
+                }
+                function fadeDown() {
+                    jQuery({value:1.0}).animate({value:0.65}, {
+                        duration: 750,
+                        easing: 'swing',
+                        step: fadeUpdate,
+                        complete: fadeUp
+                    });
+                }
+
+                function highlight(id) {
+                    if (animstate.obj != null) {
+                        var color = animstate.fillColors[0];
+                        animstate.obj.css('fill', color.toHexString(false));
+                        animstate.obj.css('fill-opacity', color.alpha());
+                    }
+                    animstate.id = id;
+                    var svg = $('svg')[0];
+                    animstate.obj = jQuery(svg.getElementById(id));
+                    if (! animstate.started) {
+                        animstate.started = true;
+                        fadeDown();
+                    }
+                }
+
+                highlight(map[id]);
+
+            },
+
+            /**
+             * Event Handlers
+             */
+
             "{viewBy} change" : function(){
                 _.defer($.proxy(this.updateView,this))
             },
@@ -123,10 +204,9 @@ steal(
             "day/:day route" : function(day){
                 this.options.day(day['day']);
             },
-            "td.location click" : function(el){
-                el.popover({
-                    html : '<embed id="svg" style="float:right" type="image/svg+xml" src="penguicon.svg" width="600" height="600" border="1"></embed>'
-                })
+            "td.location button click" : function(el){
+                $('#hotelmap').modal();
+                this.highlightMap(el.data().location);
             }
         });
     });

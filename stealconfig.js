@@ -9,8 +9,8 @@ steal.config({
 		}
 	},
 	paths: {
-		"lodash": "lib/lodash.compat-dev.js",
-		"jquery": "lib/jquery-1.9.1-dev.js",
+		"lodash": "lib/lodash.compat.js",
+		"jquery": "lib/jquery-1.9.1.js",
 		"can" : "lib/canjs/can.js",
         "moment" : "lib/moment.min.js"
 	},

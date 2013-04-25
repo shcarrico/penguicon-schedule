@@ -2,7 +2,6 @@ steal(
 	"app/component/navbar",
     "app/control/eventList",
 	"can",
-    "./penguicon.less",
 	function (Navigation,EventList) {
 		"use strict";
 		return can.Control({
