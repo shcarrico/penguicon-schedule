@@ -41,17 +41,21 @@ steal(
                     days = data.days;
                     locations = data.locations;
                     tracks = data.tracks;
-                    dayMap = _.invert(data.names);
+                    dateMap = data.names;
+                    dayMap = _.invert(dateMap);
 
                     viewBy = self.options.viewBy();
                     appDay = dayMap[self.options.day()];
 
-
-                    var frag = eventListTpl(appDay, {
+                    var frag = eventListTpl({date:[appDay]}, {
 
                         getViewBy: function (dayStr) {
                             dayStr = String(dayStr);
+                            accordionIdx = 0;
                             return viewByTpl.render({view: data[viewBy + 's']}, {
+                                getAccordionId : function(){
+                                    return "_accordion" + accordionIdx++;
+                                },
                                 getEvent: function (key) {
                                     key = String(key);
                                     var events = day[dayStr]["by"+can.capitalize(viewBy)][key];
@@ -62,7 +66,8 @@ steal(
 
                         getDayName: function (dayStr) {
                             dayStr = String(dayStr);
-                            return can.capitalize(days[dayStr].name);
+
+                            return can.capitalize(dateMap[dayStr]);
                         }
                     });
 
