@@ -1,6 +1,8 @@
 {{#view}}
-    <h3>{{.}}</h3>
-    <div class="closed" {{data "view"}}>
-    {{{getEvent this}}}
+    <div class="accordion-group">
+        <h3 class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accord1" href="#{{getAccordionId this}}">{{.}}</a></h3>
+        <div {{data "view"}} id="{{getAccordionId this}}" class="accordion-body collapse">
+            <div class="accordion-inner">{{{getEvent this}}}</div>
+        </div>
     </div>
 {{/view}}

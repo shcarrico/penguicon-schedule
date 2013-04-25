@@ -1,2 +1,6 @@
-<h2>Events for {{dayName this}}</h2>
+{{#date}}
+<h2>Events for {{getDayName this}}</h2>
+<div class="accordion" id="accord1">
 {{{getViewBy this}}}
+</div>
+{{/date}}

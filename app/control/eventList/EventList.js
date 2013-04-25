@@ -52,9 +52,14 @@ steal(
                         getViewBy: function (dayStr) {
                             dayStr = String(dayStr);
                             accordionIdx = 0;
+                            lastSection = "";
                             return viewByTpl.render({view: data[viewBy + 's']}, {
-                                getAccordionId : function(){
-                                    return "_accordion" + accordionIdx++;
+                                getAccordionId : function(section){
+                                    if(section !== lastSection){
+                                        accordionIdx++;
+                                        lastSection = section;
+                                    }
+                                    return "_accordion" + accordionIdx;
                                 },
                                 getEvent: function (key) {
                                     key = String(key);
