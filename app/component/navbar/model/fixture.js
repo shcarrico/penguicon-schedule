@@ -8,15 +8,15 @@ steal("can",
 				return [
 					{
 						name: 'Friday',
-						route: '/friday'
+						route: 'day/friday'
 					},
 					{
 						name: 'Saturday',
-						route: '/saturday'
+						route: 'day/saturday'
 					},
                     {
                         name: 'Sunday',
-                        route: '/sunday'
+                        route: 'day/sunday'
                     }
 				];
 			})

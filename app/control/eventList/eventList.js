@@ -88,11 +88,18 @@ steal(
                 _.defer($.proxy(this.updateView,this))
             },
 
+            "{day} change" : function(){
+                _.defer($.proxy(this.updateView,this))
+            },
+
             "#btnBylocation click" : function(){
                 this.options.viewBy('location')
             },
             "#btnBytrack click" : function(){
                 this.options.viewBy('track')
+            },
+            "day/:day route" : function(day){
+                this.options.day(day['day']);
             }
         });
     });
