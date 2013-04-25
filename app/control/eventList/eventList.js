@@ -120,7 +120,14 @@ steal(
                                                 if (self.options.viewBy() != 'track') {
                                                     return '<td class="nowrap">'+track+'</td>';
                                                 }
+                                            },
+                                            getPresenters : function(){
+                                                return this.presenters;
+                                            },
+                                            getDescription : function(){
+                                                return this.description
                                             }
+
                                         })
                                 }
                             });

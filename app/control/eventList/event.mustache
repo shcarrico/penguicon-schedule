@@ -2,28 +2,35 @@
 
     <div class="event">
         <h5>{{title}}</h5>
-            <table class="table table-condensed">
-                    <thead>
-                    <tr>
-                        <td class="head">Start</td>
-                        <td class="head">End</td>
-                        {{{showLocationHeader}}}
-                        {{{showTrackHeader}}}
-                        <td class="head">Presenter</td>
-                        <td class="head">Description</td>
-                    </tr>
-                    </thead>
-                    <tbody>
+        <table class="table table-condensed">
+                <thead>
+                <tr>
+                    <td>Start</td>
+                    <td>End</td>
+                    {{{showLocationHeader location}}}
+                    {{{showTrackHeader location}}}
+                    <td class="presenter">Presenter</td>
+                    <td class="description">Description</td>
+                </tr>
+                </thead>
+                <tbody>
                     <tr>
                         <td>{{fmtTime start}}</td>
                         <td>{{fmtTime end}}</td>
                         {{{showLocation location}}}
                         {{{showTrack track}}}
-                        <td>{{#presenters}}<span style="display:block;white-space:nowrap">{{.}}</span>{{/presenters}}</td>
-                        <td>{{description}}</td>
+                        <td class="presenter">{{#presenters}}<span style="display:block;white-space:nowrap">{{.}}</span>{{/presenters}}</td>
+                        <td class="description">{{description}}</td>
                     </tr>
-                    </tbody>
-             </table>
+                </tbody>
+         </table>
+
+          <div class="small">
+              <h6>Presenters</h6>
+              <p>{{#presenters}}<span style="display:block;white-space:nowrap">{{.}}</span>{{/presenters}}</p>
+              <h6>Description</h6>
+              <p>{{description}}</p>
+          </div>
     </div>
 {{/evt}}
 {{^evt}}
