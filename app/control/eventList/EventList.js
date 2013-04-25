@@ -50,6 +50,10 @@ steal(
                                     return eventTpl.render({evt: day[dayStr]["by"+can.capitalize(viewBy)][key]})
                                 }
                             });
+                        },
+                        getDayName: function (dayStr) {
+                            dayStr = String(dayStr);
+                            return days[dayStr].name;
                         }
                     });
 
