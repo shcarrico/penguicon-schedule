@@ -1,6 +1,6 @@
 steal(
 	"app/component/navbar",
-    "app/control/EventList",
+    "app/control/eventList",
 	"can",
     "./penguicon.less",
 	function (Navigation,EventList) {
