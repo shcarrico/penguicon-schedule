@@ -16,20 +16,32 @@ steal(
             init: function () {
                 var self;
 
-                self = this;
+                this.options.viewBy = can.compute('track');
 
+                this.setLoading();
+
+                this.updateView();
+            },
+
+            setLoading : function(){
+                this.element.addClass('loading');
+            },
+
+            updateView : function(){
+                var self = this;
                 EventGroups().then(function (events, data) {
 
-                    var day, days, dayStr, locations, tracks;
+                    var day, days, viewBy, dayStr, locations, tracks;
 
                     day = data.day;
                     days = data.days;
                     locations = data.locations;
                     tracks = data.tracks;
 
-                    var viewBy = "track";
+                    viewBy = self.options.viewBy();
 
                     var frag = eventListTpl(data, {
+
                         getViewBy: function (dayStr) {
                             dayStr = String(dayStr);
                             return viewByTpl.render({view: data[viewBy + 's']}, {
@@ -41,7 +53,8 @@ steal(
                         }
                     });
 
-                    self.element.html(frag);
+                    self.element.find('.list').html(frag);
+                    self.element.removeClass('loading');
                 });
             }
         });
