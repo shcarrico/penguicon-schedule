@@ -53,7 +53,7 @@ steal(
                         },
                         getDayName: function (dayStr) {
                             dayStr = String(dayStr);
-                            return days[dayStr].name;
+                            return day[dayStr].name;
                         }
                     });
 
