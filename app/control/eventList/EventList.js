@@ -1,6 +1,6 @@
 steal(
     "app/model/eventGroups",
-    "./eventlist.mustache",
+    "./Eventlist.mustache",
     "./viewby.mustache",
     "./event.mustache",
     "lodash",
