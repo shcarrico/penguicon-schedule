@@ -75,18 +75,41 @@ steal(
                     appDay = dayMap[self.options.day()];
 
                     var frag = eventListTpl({date:[appDay]}, {
-
+                        getHeading: function(dayStr) {
+                            dayStr = String(dayStr);
+                            var dayName = can.capitalize(dateMap[dayStr]);
+                            if (viewBy == 'startTime') {
+                                return "";
+                            }
+                            return "<h3>Events for "+dayName+"</h3>";
+                        },
                         getViewBy: function (dayStr) {
                             dayStr = String(dayStr);
                             accordionIdx = 0;
                             lastSection = "";
-                            return viewByTpl.render({view: data[viewBy + 's']}, {
+                            var viewByData = data[viewBy + 's'];
+                            if (viewBy == 'startTime') {
+                                nowMoment = moment();
+                                viewByData = _.filter(data.startTimes, function(groupTime) {
+                                    var groupTimeMoment = moment("2013 "+groupTime+" -0400", "YYYY MMM-DD HH:mm Z");
+                                    return groupTimeMoment.diff(nowMoment, 'minutes') >= -50;
+                                });
+                                viewByData.length = Math.min(viewByData.length, 3);
+                            };
+                            return viewByTpl.render({view: viewByData}, {
                                 getAccordionId : function(section){
                                     if(section !== lastSection){
                                         accordionIdx++;
                                         lastSection = section;
                                     }
                                     return "_accordion" + accordionIdx;
+                                },
+                                getSectionName : function(section){
+                                    if (viewBy == 'startTime') {
+                                        var sectionMoment = moment(section, "MMM-DD HH:mm");
+                                        return sectionMoment.format("hh:mma");
+                                    }
+                                    return section;
                                 },
                                 showMap : function(location){
                                     if (self.options.viewBy() == 'location') {
@@ -95,7 +118,11 @@ steal(
                                 },
                                 getEvent: function (key) {
                                     key = String(key);
-                                    var events = day[dayStr]["by"+can.capitalize(viewBy)][key];
+                                    if (viewBy == 'startTime') {
+                                        var events = data["by"+can.capitalize(viewBy)][key];
+                                    } else {
+                                        var events = day[dayStr]["by"+can.capitalize(viewBy)][key];
+                                    }
                                     if(typeof events === "undefined"){
                                         events = [];
                                     }
@@ -125,7 +152,7 @@ steal(
                                                 return this.presenters;
                                             },
                                             getDescription : function(){
-                                                return this.description
+                                                return this.description;
                                             }
 
                                         })
@@ -149,6 +176,11 @@ steal(
                         if (body.scrollTop() > selected.offset().top)
                             $("html, body").animate({scrollTop: (selected.offset().top)-50}, 300);
                     });
+
+                    var viewBy = self.options.viewBy();
+                    if (viewBy == "startTime") {
+                        self.element.find('.accordion-toggle:first').click();
+                    }
 
                 });
             },
@@ -221,6 +253,9 @@ steal(
             },
             "#btnBytrack click" : function(){
                 this.options.viewBy('track')
+            },
+            "#btnBystartTime click" : function(){
+                this.options.viewBy('startTime')
             },
             "day/:day route" : function(day){
                 this.options.day(day['day']);

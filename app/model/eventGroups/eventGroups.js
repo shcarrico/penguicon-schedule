@@ -31,6 +31,7 @@ steal(
                     data.day[day].events = days[day];
                     data.day[day].byLocation = _.groupBy(days[day], "location");
                     data.day[day].byTrack = _.groupBy(days[day], "track");
+                    data.day[day].byTime = _.groupBy(days[day], "start");
                     data.day[day].name = names[day];
                 }
 
@@ -38,6 +39,10 @@ steal(
                 data.names = names;
                 data.locations = _.unique(_.map(events,"location")).sort();
                 data.tracks = _.unique(_.map(events,"track")).sort();
+                data.startTimes = _.unique(_.map(events.attr(),function(evt) {
+                    return evt.date+" "+evt.start})).sort();
+                data.byStartTime = _.groupBy(events.attr(), function(evt) {
+                    return evt.date+" "+evt.start});
 
                 def.resolve(events, data);
             });
