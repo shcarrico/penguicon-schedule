@@ -171,7 +171,14 @@ svg {
    ========================================================================== */
 
 
+@media only screen and (max-height: 720px) {
 
+    .modal#hotelmap {
+        bottom: 20px;
+        overflow-y: scroll;
+    }
+
+}
 
 
 
@@ -246,7 +253,6 @@ svg {
         width: 720px;
         margin-left: -360px;
         top: 20px;
-        
     }
 
 /* ============
