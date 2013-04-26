@@ -13,17 +13,8 @@ steal(
 		});
 
 		return can.Control({
-			init: function () {
-
-				this.options.viewBy = can.compute('track');
-				this.options.day = can.compute('friday');
-
-				this.on();
-
-
-				_.defer($.proxy(this.updateView, this));
-
-				this.options.places = {
+			defaults : {
+				places : {
 					"salon_a": "Salon A",
 					"salon_b": "Salon B",
 					"salon_c": "Salon C",
@@ -39,16 +30,24 @@ steal(
 					"ottawa_ballroom": "Ottawa Ballroom",
 					"fountain_terrace": "Fountain Terrace",
 					"boardroom": "Boardroom"
-				};
-
-				this.options.animState = {
+				},
+				animState : {
 					id: null,
 					obj: null,
 					started: false,
 					progress: 0,
 					fillColors: [jQuery.Color("rgba(0,124,250,0.28)"), jQuery.Color("rgba(185,231,81,0.58)")]
-				};
+				}
+			}
+		},{
+			init: function () {
 
+				this.options.viewBy = can.compute('track');
+				this.options.day = can.compute('friday');
+
+				this.on();
+
+				_.defer($.proxy(this.updateView, this));
 			},
 
 			setLoading: function () {
@@ -140,10 +139,18 @@ steal(
 						}
 					});
 
-					self.element.find('.list').html(frag);
-					self.element.removeClass('loading');
-				});
-			},
+                    self.element.find('.list').html(frag);
+                    self.element.removeClass('loading');
+
+                    self.element.find('.accordion').on('shown', function() {
+                        var selected = $(this).find(".accordion-group > .in")
+                        var body = $("html > body");
+                        if (body.scrollTop() > selected.offset().top)
+                            $("html, body").animate({scrollTop: (selected.offset().top)-50}, 300);
+                    });
+
+                });
+            },
 
 			highlightMap: function (id) {
 
