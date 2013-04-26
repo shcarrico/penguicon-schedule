@@ -1,7 +1,7 @@
 steal("can",function(can){
     return can.Model({
         findAll : {
-            url: "http://www.alucodev.net/penguicon2013/data/jsonp",
+            url: "http://penguicon.alucodev.info/data/jsonp",
             dataType: "jsonp",
             jsonpCallback : "parse",
             jsonp : false,
