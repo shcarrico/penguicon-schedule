@@ -142,6 +142,14 @@ steal(
 
                     self.element.find('.list').html(frag);
                     self.element.removeClass('loading');
+
+                    self.element.find('.accordion').on('shown', function() {
+                        var selected = $(this).find(".accordion-group > .in")
+                        var body = $("html > body");
+                        if (body.scrollTop() > selected.offset().top)
+                            $("html, body").animate({scrollTop: (selected.offset().top)-50}, 300);
+                    });
+
                 });
             },
 
