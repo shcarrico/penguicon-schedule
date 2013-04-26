@@ -97,6 +97,7 @@ steal(
 								});
 								viewByData.length = Math.min(viewByData.length, 3);
 							}
+
 							return viewByTpl.render({view: viewByData}, {
 								getAccordionId: function (section) {
 									if (section !== lastSection) {
@@ -258,16 +259,20 @@ steal(
 			"#btnBylocation click": function () {
 				this.options.viewBy('location')
 			},
+
 			"#btnBytrack click": function () {
 				this.options.viewBy('track')
 			},
+
 			"button.showmap click": function (el) {
 				$('#hotelmap').modal();
 				this.highlightMap(el.data().location);
 			},
+
 			"#btnBystartTime click": function () {
 				this.options.viewBy('startTime')
 			},
+
 			//route observable handlers
 			"day/:day route": function (day) {
 				this.options.day(day['day']);
