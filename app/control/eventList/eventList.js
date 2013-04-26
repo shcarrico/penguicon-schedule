@@ -79,9 +79,9 @@ steal(
 							dayStr = String(dayStr);
 							var dayName = can.capitalize(dateMap[dayStr]);
 							if (viewBy == 'startTime') {
-								return "";
+								return "What's happening now";
 							}
-							return "<h3>Events for " + dayName + "</h3>";
+							return "Events for " + dayName;
 						},
 
 						getViewBy: function (dayStr) {
