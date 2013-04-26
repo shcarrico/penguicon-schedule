@@ -121,6 +121,7 @@ steal(
 									key = String(key);
 									if (viewBy == 'startTime') {
 										var events = data["by" + can.capitalize(viewBy)][key];
+										events = _.sortBy(events, 'location');
 									} else {
 										var events = day[dayStr]["by" + can.capitalize(viewBy)][key];
 									}
