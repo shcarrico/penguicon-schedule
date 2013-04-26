@@ -42,7 +42,7 @@ steal(
 		}, {
 			init: function () {
 
-				this.options.viewBy = can.compute('track');
+				this.options.viewBy = can.compute('startTime');
 				this.options.day = can.compute('friday');
 
 				this.on();
