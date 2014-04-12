@@ -9,7 +9,11 @@ steal(
 	function (EventGroups, eventListTpl, viewByTpl, eventTpl) {
 
 		can.Mustache.registerHelper("fmtTime", function (timeStr) {
-			return moment(timeStr, "HH:mm").format("hh:mma");
+			if (timeStr == '') {
+				return 'All Day';
+			} else {
+				return moment(timeStr, "HH:mm").format("hh:mma");
+			}
 		});
 
 		return can.Control({
@@ -92,7 +96,7 @@ steal(
 							if (viewBy == 'startTime') {
 								nowMoment = moment();
 								viewByData = _.filter(data.startTimes, function (groupTime) {
-									var groupTimeMoment = moment("2013 " + groupTime + " -0400", "YYYY MMM-DD HH:mm Z");
+									var groupTimeMoment = moment("2014 " + groupTime + " -0400", "YYYY MMM-DD HH:mm Z");
 									return groupTimeMoment.diff(nowMoment, 'minutes') >= -50;
 								});
 								viewByData.length = Math.min(viewByData.length, 3);
