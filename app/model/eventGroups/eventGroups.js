@@ -18,6 +18,9 @@ steal(
 					if (node.hasOwnProperty('book_description')) {
 						node.attr('description', node.attr('book_description'));
 					}
+					if (node['location'] == '') {
+						node.attr('location', '\uFEFFEverywhere');
+					}
 				});
 
 				days = _.groupBy(events.attr(), 'start_date');
