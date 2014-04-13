@@ -19,22 +19,24 @@ steal(
 		return can.Control({
 			defaults: {
 				places: {
-					"salon_a": "Salon A",
-					"salon_b": "Salon B",
-					"salon_c": "Salon C",
-					"salon_d": "Salon D",
-					"salon_e": "Salon E",
-					"oakland_ballroom": "Oakland Ballroom",
-					"auburn": "Auburn",
-					"centerpoint": "Centerpoint",
-					"baldwin": "Baldwin",
-					"wisner": "Wisner",
-					"perry": "Perry",
-					"featherstone": "Featherstone",
-					"ottawa_ballroom": "Ottawa Ballroom",
-					"fountain_terrace": "Fountain Terrace",
-					"boardroom": "Boardroom"
+					"Algonquin A": "algonquin_a",
+					"Algonquin B/C": "algonquin_bc",
+					"Algonquin D": "algonquin_d",
+					"Baldwin Board Room": "baldwin_boardroom",
+					"Board of Governors": "board_governors",
+					"Board of Regents": "board_regents",
+					"Board of Trustees": "board_trustees",
+					"Charlevoix A": "charlevoix_a",
+					"Charlevoix B": "charlevoix_b",
+					"Charlevoix C": "charlevoix_c",
+					"Gaming (Restaurant)": "tc_linguinis",
+					"Hamlin": "hamlin",
+					"Montcalm": "montcalm",
+					"Nicolet": "nicolet",
+					"Portage Auditorium": "portage_auditorium",
+					"Windover": "windover"
 				},
+				mapLoaded: can.Deferred(),
 				animState: {
 					id: null,
 					obj: null,
@@ -42,9 +44,11 @@ steal(
 					progress: 0,
 					fillColors: [jQuery.Color("rgba(0,124,250,0.28)"), jQuery.Color("rgba(185,231,81,0.58)")]
 				}
+
 			}
 		}, {
 			init: function () {
+				var self = this;
 
 				this.options.viewBy = can.compute('startTime');
 				this.options.day = can.compute('friday');
@@ -52,6 +56,10 @@ steal(
 				this.on();
 
 				_.defer($.proxy(this.updateView, this));
+
+				$('#hotelmapcontainer').load('penguicon_2014.svg', null, function() {
+					self.options.mapLoaded.resolve($('svg')[0]);
+				});
 			},
 
 			setLoading: function () {
@@ -118,7 +126,7 @@ steal(
 									return section;
 								},
 								showMap: function (location) {
-									if (self.options.viewBy() == 'location') {
+									if (self.options.viewBy() == 'location' && self.options.places.hasOwnProperty(location)) {
 										return '<button data-location="' + location + '" class="btn btn-mini btn-info showmap">Map</button>';
 									}
 								},
@@ -193,56 +201,14 @@ steal(
 				});
 			},
 
-			highlightMap: function (id) {
+			highlightMap: function (name) {
 
-				var map = _.invert(this.options.places);
-
-				var animstate = this.options.animState;
-
-				function fadeUpdate() {
-					var value = this['value'];
-					animstate.progress = value;
-					if (animstate.id != null && animstate.obj != null) {
-						var color = animstate.fillColors[0].transition(animstate.fillColors[1], value);
-						animstate.obj.css('fill', color.toHexString(false));
-						animstate.obj.css('fill-opacity', color.alpha());
-					}
-				}
-
-				function fadeUp() {
-					jQuery({value: 0.65}).animate({value: 1.0}, {
-						duration: 750,
-						easing: 'swing',
-						step: fadeUpdate,
-						complete: fadeDown
+				var id = this.options.places[name];
+				if (id) {
+					this.options.mapLoaded.then(function (svg) {
+						window.select_room(id);
 					});
 				}
-
-				function fadeDown() {
-					jQuery({value: 1.0}).animate({value: 0.65}, {
-						duration: 750,
-						easing: 'swing',
-						step: fadeUpdate,
-						complete: fadeUp
-					});
-				}
-
-				function highlight(id) {
-					if (animstate.obj != null) {
-						var color = animstate.fillColors[0];
-						animstate.obj.css('fill', color.toHexString(false));
-						animstate.obj.css('fill-opacity', color.alpha());
-					}
-					animstate.id = id;
-					var svg = $('svg')[0];
-					animstate.obj = jQuery(svg.getElementById(id));
-					if (!animstate.started) {
-						animstate.started = true;
-						fadeDown();
-					}
-				}
-
-				highlight(map[id]);
 
 			},
 
