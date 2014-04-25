@@ -1,6 +1,6 @@
 steal("app/properties.js",function(properties){
 	//setup namespace
-	window.JV = {};
+	window.PS = {};
 
-	window.JV.properties = properties;
+	window.PS.properties = properties;
 });

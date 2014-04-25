@@ -6,7 +6,7 @@ steal(
 	"lodash",
 	"can",
 	"moment",
-	function (EventGroups, eventListTpl, viewByTpl, eventTpl) {
+	function (eventGroups, eventListTpl, viewByTpl, eventTpl) {
 
 		can.Mustache.registerHelper("fmtTime", function (timeStr) {
 			if (timeStr == '') {
@@ -51,19 +51,24 @@ steal(
 
 				this.on();
 
-				_.defer($.proxy(this.updateView, this));
+                this.updateView();
 			},
 
 			setLoading: function () {
 				this.element.addClass('loading');
-				this.element.find('.list').empty();
+				this.element.find('.list').css('visibility','hidden');
 			},
+
+            clearLoading : function(){
+                this.element.removeClass('loading');
+                this.element.find('.list').css('visibility','visible');
+            },
 
 			updateView: function () {
 				var self = this;
 				this.setLoading();
 
-				EventGroups().then(function (events, data) {
+				eventGroups.done(function (events, data) {
 
 					var day, days, viewBy, dayStr, locations, tracks;
 
@@ -175,7 +180,7 @@ steal(
 					});
 
 					self.element.find('.list').html(frag);
-					self.element.removeClass('loading');
+					self.clearLoading();
 
 					self.element.find('.accordion').on('shown', function () {
 						var selected = $(this).find(".accordion-group > .in")
@@ -185,7 +190,6 @@ steal(
 						}
 					});
 
-					var viewBy = self.options.viewBy();
 					if (viewBy == "startTime") {
 						self.element.find('.accordion-toggle:first').click();
 					}
@@ -251,13 +255,8 @@ steal(
 			 */
 
 			//observable object handlers
-			"{viewBy} change": function () {
-				_.defer($.proxy(this.updateView, this))
-			},
-
-			"{day} change": function () {
-				_.defer($.proxy(this.updateView, this))
-			},
+			"{viewBy} change": "updateView",
+			"{day} change": "updateView",
 
 			//DOM element handlers
 			"#btnBylocation click": function () {
