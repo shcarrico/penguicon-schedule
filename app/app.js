@@ -1,6 +1,6 @@
 steal("jquery")
     .then(
-        "app/penguicon.less",
+        "css/penguicon.less",
         "lib/jquery.color-2.1.0.min.js",
         "lib/jquery.svg.min.js",
         "lib/bootstrap.min.js",
