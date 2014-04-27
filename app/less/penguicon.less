@@ -142,10 +142,49 @@ body {
     z-index: 2;
   }
 
-  .modal-body {
-    max-height: 715px;
+  .modal-dialog {
+    height: 100%;
+    width: 100%;
+    position: fixed;
     overflow: visible;
+  }
+
+  .modal-dialog svg {
+    height: 100%;
+    width: 100%;
   }
 
 }
 
+#hotelmap {
+  background: rgba(0,0,0,0.8);
+  display: none;
+  //height: 100%;
+  width: 100%;
+  position: static;
+
+  .close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: #ccc;
+    cursor: pointer;
+  }
+}
+#hotelmapcontainer {
+  //height: 100%;
+  width: 100%;
+}
+#hotelmapcontainer svg {
+  height: 80%;
+  width: 100%;
+}
+
+body.mapopen {
+  #hotelmap {
+    display: block;
+  }
+  #EventList {
+    display: none;
+  }
+}

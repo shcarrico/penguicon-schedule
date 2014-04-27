@@ -46,6 +46,13 @@ module.exports = can.Control({
 		$('#hotelmapcontainer').load('penguicon_2014.svg', null, function() {
 			self.options.mapLoaded.resolve($('svg')[0]);
 		});
+		$('body').click(function (ev, el) {
+			if (! $(ev.target).parents('svg').length) {
+				if ($(this).hasClass('mapopen')) {
+					$('body').removeClass('mapopen');
+				}
+			}
+		});
 
 		this.updateView();
 	},
@@ -218,8 +225,9 @@ module.exports = can.Control({
 	},
 
 	"button.showmap click": function (el) {
-		$('#hotelmap').modal();
+		$('body').addClass('mapopen')
 		this.highlightMap(el.data().location);
+		return false;
 	},
 
 	//route observable handlers
