@@ -15,31 +15,37 @@ can.Mustache.registerHelper("fmtTime", function (timeStr) {
 module.exports = can.Control({
 	defaults: {
 		places: {
-			"salon_a": "Salon A",
-			"salon_b": "Salon B",
-			"salon_c": "Salon C",
-			"salon_d": "Salon D",
-			"salon_e": "Salon E",
-			"oakland_ballroom": "Oakland Ballroom",
-			"auburn": "Auburn",
-			"centerpoint": "Centerpoint",
-			"baldwin": "Baldwin",
-			"wisner": "Wisner",
-			"perry": "Perry",
-			"featherstone": "Featherstone",
-			"ottawa_ballroom": "Ottawa Ballroom",
-			"fountain_terrace": "Fountain Terrace",
-			"boardroom": "Boardroom"
+			"Algonquin A": "algonquin_a",
+			"Algonquin B/C": "algonquin_bc",
+			"Algonquin D": "algonquin_d",
+			"Baldwin Board Room": "baldwin_boardroom",
+			"Board of Governors": "board_governors",
+			"Board of Regents": "board_regents",
+			"Board of Trustees": "board_trustees",
+			"Charlevoix A": "charlevoix_a",
+			"Charlevoix B": "charlevoix_b",
+			"Charlevoix C": "charlevoix_c",
+			"Gaming (Restaurant)": "tc_linguinis",
+			"Hamlin": "hamlin",
+			"Montcalm": "montcalm",
+			"Nicolet": "nicolet",
+			"Portage Auditorium": "portage_auditorium",
+			"Windover": "windover"
 		},
+		mapLoaded: can.Deferred(),
 		day: "friday"
 	}
 }, {
 	init: function () {
-
+		var self = this;
 		this.options.viewBy = can.compute('startTime');
 		this.options.day = can.compute('friday');
 
 		this.on();
+
+		$('#hotelmapcontainer').load('penguicon_2014.svg', null, function() {
+			self.options.mapLoaded.resolve($('svg')[0]);
+		});
 
 		this.updateView();
 	},
@@ -113,7 +119,7 @@ module.exports = can.Control({
 							return section;
 						},
 						showMap: function (location) {
-							if (self.options.viewBy() == 'location') {
+							if (self.options.viewBy() == 'location' && self.options.places.hasOwnProperty(location)) {
 								return '<button data-location="' + location + '" class="btn btn-mini btn-info showmap">Map</button>';
 							}
 						},
@@ -185,6 +191,15 @@ module.exports = can.Control({
 			}
 
 		});
+	},
+
+	highlightMap: function (name) {
+		var id = this.options.places[name];
+		if (id) {
+			this.options.mapLoaded.then(function (svg) {
+				window.select_room(id);
+			});
+		}
 	},
 
 	/**
