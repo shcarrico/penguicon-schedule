@@ -1,7 +1,5 @@
-steal(function () {
-	return {
-		"service_urls": {
-			"nav": "/svc/nav"
-		}
+module.exports = {
+	"service_urls": {
+		"data": "2014.penguicon.schedule.json"
 	}
-});
+};

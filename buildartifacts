@@ -1,2 +1,0 @@
-#!/bin/sh
-./js steal/buildjs build.html -to production

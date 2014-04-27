@@ -1,8 +1,0 @@
-{{#view}}
-    <div class="accordion-group">
-        <h4 class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accord1" href="#{{getAccordionId this}}">{{getSectionName this}}</a>{{{showMap this}}}</h4>
-        <div {{data "view"}} id="{{getAccordionId this}}" class="accordion-body collapse">
-            <div class="accordion-inner">{{{getEvent this}}}</div>
-        </div>
-    </div>
-{{/view}}
