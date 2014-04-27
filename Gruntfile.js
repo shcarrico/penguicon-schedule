@@ -102,8 +102,7 @@ module.exports = function (grunt) {
 						return middlewares;
 					},
 					hostname: "localhost",
-					port: "8000",
-					keepalive: true
+					port: "8000"
 				}
 			}
 		},
@@ -120,6 +119,6 @@ module.exports = function (grunt) {
 
 	//these are custom tasks that use specific repo tasks
 	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod']);
-	grunt.registerTask('server', ['clean', 'watch', 'connect'])
+	grunt.registerTask('server', ['clean', 'connect', 'watch'])
 
 };
