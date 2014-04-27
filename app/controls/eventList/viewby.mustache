@@ -1,11 +1,12 @@
 {{#view}}
-    <div class="accordion-group">
-        <h4 class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accord1"
-                                         href="#{{getAccordionId this}}">{{getSectionName this}}</a>{{{showMap this}}}
-        </h4>
-
-        <div {{data "view"}} id="{{getAccordionId this}}" class="accordion-body collapse">
-            <div class="accordion-inner">{{{getEvent this}}}</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accord1"
+                                       href="#{{getAccordionId this}}">{{getSectionName this}}</a>&nbsp;{{{showMap this}}}
+            </h4>
+        </div>
+        <div {{data "view"}} id="{{getAccordionId this}}" class="panel-collapse collapse">
+            <div class="panel-body">{{{getEvent this}}}</div>
         </div>
     </div>
 {{/view}}

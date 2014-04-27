@@ -120,7 +120,7 @@ module.exports = can.Control({
 						},
 						showMap: function (location) {
 							if (self.options.viewBy() == 'location' && self.options.places.hasOwnProperty(location)) {
-								return '<button data-location="' + location + '" class="btn btn-mini btn-info showmap">Map</button>';
+								return '<button data-location="' + location + '" class="btn btn-xs btn-info showmap">Map</button>';
 							}
 						},
 						getEvent: function (key) {
@@ -143,7 +143,7 @@ module.exports = can.Control({
 									},
 									showLocation: function (location) {
 										if (self.options.viewBy() != 'location') {
-											return '<td class="location nowrap"><button data-location="' + location + '" class="showmap btn btn-small btn-info">' + location + '</button></td>';
+											return '<td class="location nowrap"><button data-location="' + location + '" class="showmap btn btn-xs btn-info">' + location + '</button></td>';
 										}
 									},
 									showTrackHeader: function () {
