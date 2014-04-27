@@ -11,19 +11,15 @@
 
 </head>
 <body>
+<nav class="navbar navbar-default">
+    <h1 class="title"><img src="img/tux-100.png" width="91" height="100"/>&nbsp;Penguicon 2014 Schedule</h1>
 
-<div class="header-container">
-    <header class="wrapper clearfix">
-        <h1 class="title"><img src="img/tux-100.png" width="91" height="100"/>&nbsp;Penguicon 2014 Schedule</h1>
+    <div id="NavBar"></div>
+</nav>
 
-        <div id="NavBar"></div>
-    </header>
-</div>
-
-<div class="main-container">
-    <div class="main wrapper clearfix">
-        <div id="EventList">
-            <div class="btn-group" data-toggle="buttons">
+<div class="container">
+    <div id="EventList" class="col-md-12">
+    <div class="btn-group" data-toggle="buttons">
                 <label class="btn btn-default">
                     <input type="radio" name="viewBy" value="track">By Track
                 </label>
@@ -37,16 +33,11 @@
             <div class="alert alert-info loadMsg">Loading, please wait...</div>
             <div class="list"><h2 class="label label-info">App Initializing...</h2></div>
         </div>
-
-    </div>
-    <!-- #main -->
 </div>
 <!-- #main-container -->
 
-<div class="footer-container">
-    <footer class="wrapper">
-        <h6>Thanks for playing!</h6>
-    </footer>
+<div class="navbar navbar-default navbar-fixed-bottom">
+    <h6>Thanks for playing!</h6>
 </div>
 
 <div class="modal hide" id="hotelmap">

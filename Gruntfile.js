@@ -36,7 +36,7 @@ module.exports = function (grunt) {
 				output: {
 					path: "build/",
 					filename: "[name].js"
-				}/*,
+				},
 				 plugins: webpackConfig.plugins.concat(
 				 new webpack.DefinePlugin({
 				 "process.env": {
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
 				 //this runs the output through uglifyJs to minify the output
 				 //note that by default, banners in the source files are preserved
 				 new webpack.optimize.UglifyJsPlugin()
-				 )*/
+				 )
 			}
 		},
 		less: {
@@ -64,7 +64,7 @@ module.exports = function (grunt) {
 					sourceMapRootpath: "/" //Adds this path onto the less file paths in the source map.
 				},
 				files: {
-					"build/index.css": "app/less/penguicon.less"
+					"build/index.css": "app/less/*.less"
 				}
 			},
 			prod: {
@@ -74,19 +74,18 @@ module.exports = function (grunt) {
 					cleancss: true //compress CSS output
 				},
 				files: {
-					"build/index.css": "resources/less/app.less"
+					"build/index.css": "app/less/*.less"
 				}
 			}
 		},
 		watch: {
 			less: {
-				files: ['resources/**/*.less'],
+				files: ['app/less/*.less'],
 				tasks: ['less:dev'] //run this task when any of the matched files change
 			},
 			options: {
 				atBegin: true, //run the watcher tasks once to begin with, instead of waiting for a change
-				reload: true, //if there are changes to the Gruntfile, reload the watch task
-				spawn: false //spawn a child process for this watcher. Not necessary for the tasks in this file
+				spawn: true //spawn a child process for this watcher. Not necessary for the tasks in this file
 			}
 		},
 		//connect, provides HTTP server and allows middleware to handle special case routes
@@ -103,7 +102,8 @@ module.exports = function (grunt) {
 						return middlewares;
 					},
 					hostname: "localhost",
-					port: "8000"
+					port: "8000",
+					keepalive: true
 				}
 			}
 		},
@@ -120,6 +120,6 @@ module.exports = function (grunt) {
 
 	//these are custom tasks that use specific repo tasks
 	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod']);
-	grunt.registerTask('server', ['clean', 'connect', 'watch'])
+	grunt.registerTask('server', ['clean', 'watch', 'connect'])
 
 };
