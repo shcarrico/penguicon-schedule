@@ -101,6 +101,9 @@
 		stroke: none;
 	}
 	
+	.floorButton {
+		cursor: pointer;
+	}
 	.floorButton .buttonBevel {	  
 		fill: url(#inactive_button_border);
 		fill-opacity: 1;
