@@ -38,10 +38,37 @@
 	}
     .highlightedRoom {
 		fill: #a7e7b8;
-		-webkit-animation: roompulse 0.4s ease-in-out alternate infinite;
-		-moz-animation: roompulse 0.4s ease-in-out alternate infinite;
-		-o-animation: roompulse 0.4s ease-in-out alternate infinite;
-		animation: roompulse 0.4s ease-in-out alternate infinite;
+		-webkit-animation: roompulse 0.6s ease-in-out alternate infinite;
+		-moz-animation: roompulse 0.6s ease-in-out alternate infinite;
+		-o-animation: roompulse 0.6s ease-in-out alternate infinite;
+		animation: roompulse 0.6s ease-in-out alternate infinite;
+	}
+	
+    @-webkit-keyframes heartpulse {
+	  0% { -webkit-transform: scale(1); }
+	  100% { -webkit-transform: scale(1.25); }
+	}
+    @-moz-keyframes heartpulse {
+	  0% { -moz-transform: scale(1); }
+	  100% { -moz-transform: scale(1.25); }
+	}
+    @-o-keyframes heartpulse {
+	  0% { -o-transform: scale(1); }
+	  100% { -o-transform: scale(1.25); }
+	}
+    @keyframes heartpulse {
+	  0% { transform: scale(1); }
+	  100% { transform: scale(1.25); }
+	}
+    #pulsingheart {
+		-webkit-animation: heartpulse 0.33s linear alternate infinite;
+		/* -moz-animation: heartpulse 0.33s linear alternate infinite; firefox doesn't work because of transform-origin */
+		-o-animation: heartpulse 0.33s linear alternate infinite;
+		/* animation: heartpulse 0.33s linear alternate infinite; firefox thinks its people*/
+		-webkit-transform-origin: center center;
+		-moz-transform-origin: center center;
+		-o-transform-origin: center center;
+		transform-origin: center center;
 	}
 	
 	text {
@@ -212,12 +239,12 @@
 	}
 	function _click_f1(evt) {
 		click_floor(1);
-		evt.stopPropagation();
+		if (evt) evt.stopPropagation();
 		return false;
 	}
 	function _click_f2(evt) {
 		click_floor(2);
-		evt.stopPropagation();
+		if (evt) evt.stopPropagation();
 		return false;
 	}
 	
@@ -1552,4 +1579,31 @@
        transform="translate(73.63766,142.98065)"
        onclick="select_random_room()" />
   </g>
-</svg>
+  <g
+     inkscape:groupmode="layer"
+     id="HUD"
+     inkscape:label="HUD"
+     style="display:inline">
+	<g
+       id="heart" transform="translate(35,20)">
+	   <g transform="scale(0.8)">
+		  <path
+			 inkscape:connector-curvature="0"
+			 id="heartborder"
+			 d="m 20,40 0,-5 -5,0 0,-5 -5,0 0,-5 -5,0 0,-5 -5,0 0,-5 0,-5 0,-5 5,0 0,-5 5,0 5,0 5,0 0,5 5,0 0,-5 5,0 5,0 5,0 0,5 5,0 0,5 0,5 0,5 -5,0 c 0,0 0,5 0,5 l -5,0 0,5 -5,0 0,5 -5,0 0,5 -5,0"
+			 style="fill:#000000;fill-opacity:1;stroke:none" />
+		  <path
+			 inkscape:connector-curvature="0"
+			 id="heartfill"
+			 d="m 20,35 0,-5 -5,0 0,-5 -5,0 0,-5 -5,0 0,-5 0,-5 0,-5 5,0 5,0 5,0 0,5 5,0 0,-5 5,0 5,0 5,0 0,5 0,5 0,5 -5,0 0,5 -5,0 0,5 -5,0 0,5 -5,0"
+			 style="fill:#ff3d2e;fill-opacity:1;stroke:none" />
+		</g>
+    </g>
+	<g transform="translate(40,0)">
+		<use xlink:href="#heart"  />
+	</g>
+	<g transform="translate(80,0)">
+		<use xlink:href="#heart" id="pulsingheart"/>
+	</g>
+  </g>
+  </svg>
