@@ -186,14 +186,6 @@ module.exports = can.Control({
 			self.element.find('.list').html(frag);
 			self.clearLoading();
 
-			self.element.find('.accordion').on('shown', function () {
-				var selected = $(this).find(".accordion-group > .in")
-				var body = $("html > body");
-				if (body.scrollTop() > selected.offset().top) {
-					$("html, body").animate({scrollTop: (selected.offset().top) - 50}, 300);
-				}
-			});
-
 			if (viewBy == "startTime") {
 				self.element.find('.accordion-toggle:first').click();
 			}
@@ -219,7 +211,6 @@ module.exports = can.Control({
 	"{day} change": "updateView",
 
 	"input[name=viewBy] change": function (el, ev) {
-
 		var val = el.val();
 		this.options.viewBy(val);
 	},
@@ -230,12 +221,27 @@ module.exports = can.Control({
 		return false;
 	},
 
-	//route observable handlers
 	"{state} change": function (state, ev, property, operation, newVal) {
 		if (property === "day") {
 			//console.log('day change', newVal)
 			this.options.day(newVal);
 		}
+	},
+
+	".panel-group shown.bs.collapse": function (el, ev) {
+		var $tgt = $(ev.currentTarget).find('.in');
+
+		var scrolltgt = $tgt.position();
+		var scrollPos = (scrolltgt.top + 25 || 0);
+
+		$("html, body").animate({
+			scrollTop: scrollPos
+		});
+	},
+
+	".star click": function (el) {
+		var data = el.data();
+
 	}
 
 });

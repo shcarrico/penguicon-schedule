@@ -1,7 +1,8 @@
 {{#evt}}
 
     <div class="event">
-        <h4>{{title}}</h4>
+        <p class="lead"><span {{data 'event'}} class="star glyphicon glyphicon-star-empty"></span>&nbsp;&nbsp;{{title}}
+        </p>
         <table class="table table-condensed">
             <thead>
             <tr>
@@ -28,7 +29,6 @@
 
         <div class="small">
             <h6>Presenters</h6>
-
             <p>{{#presenters}}<span style="display:block;white-space:nowrap">{{.}}</span>{{/presenters}}</p>
             <h6>Description</h6>
 
