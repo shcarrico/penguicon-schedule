@@ -128,7 +128,7 @@ module.exports = can.Control({
 						},
 						showMap: function (location) {
 							if (self.options.viewBy() == 'location' && self.options.places.hasOwnProperty(location)) {
-								return '<button data-location="' + location + '" class="btn btn-xs btn-info showmap byLocation">Map</button>';
+								return '<button data-location="' + location + '" class="btn btn-sm btn-info showmap byLocation">Map</button>';
 							}
 						},
 						getEvent: function (key) {
@@ -232,7 +232,6 @@ module.exports = can.Control({
 		var $tgt = $(ev.target);
 		var scrolltgt = $tgt.offset();
 		var scrollPos = (scrolltgt.top || 0) - 46;
-		console.log($tgt, scrolltgt)
 		$("html, body").animate({
 			scrollTop: scrollPos
 		});

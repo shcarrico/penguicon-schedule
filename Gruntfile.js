@@ -100,7 +100,7 @@ module.exports = function (grunt) {
 						middlewares.push(devServerMiddleware);
 						return middlewares;
 					},
-					hostname: "localhost",
+					hostname: "0.0.0.0",
 					port: "8000"
 				}
 			},
