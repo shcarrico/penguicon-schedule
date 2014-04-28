@@ -3,31 +3,6 @@ var webpack = require("webpack");
 var webpackConfig = require("./webpack.config.js");
 var webpackDevMiddleware = require("webpack-dev-middleware");
 
-var dev_compiler = webpack(_.extend({}, webpackConfig, {
-	output: {
-		path: __dirname + "build/", //it is important to begin relative paths with the __dirname builtin
-		filename: "index.js",
-		sourceMapFilename: "[file].source.map" //the [file] reference pulls the output filename
-	},
-	devtool: "#source-map" //the # sign controls the source map pragma prefix. # is more compatible than the default @,
-}));
-
-//define the middleware by passing the dev compiler options to the middleware function
-//the second argument is configuration for the connect middleware, not the webpack compiler
-var devServerMiddleware = webpackDevMiddleware(dev_compiler, {
-	noInfo: true,
-	quiet: false,
-
-	lazy: false,
-	publicPath: "/build/", //this is the middleware matcher path
-
-	watchDelay: 300,
-
-	stats: {
-		colors: true
-	}
-});
-
 module.exports = function (grunt) {
 	grunt.initConfig({
 		webpack: {
@@ -37,20 +12,20 @@ module.exports = function (grunt) {
 					path: "build/",
 					filename: "[name].js"
 				},
-				 plugins: webpackConfig.plugins.concat(
-				 new webpack.DefinePlugin({
-				 "process.env": {
-				 "NODE_ENV": JSON.stringify("production")
-				 }
-				 }),
-				 //this will remove duplicate imports in the final artifact, and eliminate
-				 //unused artifacts from the output file that were included aggressively, IE 'require('everything') instead of
-				 //a deeper seed file
-				 new webpack.optimize.DedupePlugin(),
-				 //this runs the output through uglifyJs to minify the output
-				 //note that by default, banners in the source files are preserved
-				 new webpack.optimize.UglifyJsPlugin()
-				 )
+				plugins: webpackConfig.plugins.concat(
+					new webpack.DefinePlugin({
+						"process.env": {
+							"NODE_ENV": JSON.stringify("production")
+						}
+					}),
+					//this will remove duplicate imports in the final artifact, and eliminate
+					//unused artifacts from the output file that were included aggressively, IE 'require('everything') instead of
+					//a deeper seed file
+					new webpack.optimize.DedupePlugin(),
+					//this runs the output through uglifyJs to minify the output
+					//note that by default, banners in the source files are preserved
+					new webpack.optimize.UglifyJsPlugin()
+				)
 			}
 		},
 		less: {
@@ -98,6 +73,30 @@ module.exports = function (grunt) {
 					// unless you re-declare the static middleware. This method looks messier but is l
 					// ess re-implementation of the default options
 					middleware: function (connect, options, middlewares) {
+						var dev_compiler = webpack(_.extend({}, webpackConfig, {
+							output: {
+								path: __dirname + "build/", //it is important to begin relative paths with the __dirname builtin
+								filename: "index.js",
+								sourceMapFilename: "[file].source.map" //the [file] reference pulls the output filename
+							},
+							devtool: "#source-map" //the # sign controls the source map pragma prefix. # is more compatible than the default @,
+						}));
+
+						//define the middleware by passing the dev compiler options to the middleware function
+						//the second argument is configuration for the connect middleware, not the webpack compiler
+						var devServerMiddleware = webpackDevMiddleware(dev_compiler, {
+							noInfo: true,
+							quiet: false,
+
+							lazy: false,
+							publicPath: "/build/", //this is the middleware matcher path
+
+							watchDelay: 300,
+
+							stats: {
+								colors: true
+							}
+						});
 						middlewares.push(devServerMiddleware);
 						return middlewares;
 					},
@@ -126,7 +125,8 @@ module.exports = function (grunt) {
 
 	//these are custom tasks that use specific repo tasks
 	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod']);
-	grunt.registerTask('server', ['clean', 'connect:server', 'watch'])
+	grunt.registerTask('server', ['clean', 'connect:server', 'watch']);
+
 	grunt.registerTask('prodserver', ['connect:prodserver'])
 
 };
