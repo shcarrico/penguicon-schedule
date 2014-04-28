@@ -1,0 +1,12 @@
+{{#view}}
+    <div class="panel panel-default">
+        <div class="panel-heading" data-toggle="collapse" href="#{{getAccordionId this}}">
+            <h4 class="panel-title"><a data-toggle="collapse" data-parent="#accord1"
+                                       href="#{{getAccordionId this}}">{{getSectionName this}}</a>&nbsp;{{{showMap this}}}
+            </h4>
+        </div>
+        <div {{data "view"}} id="{{getAccordionId this}}" class="panel-collapse collapse">
+            <div class="panel-body">{{{getEvent this}}}</div>
+        </div>
+    </div>
+{{/view}}

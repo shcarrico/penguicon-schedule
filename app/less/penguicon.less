@@ -1,0 +1,192 @@
+@import "../../resources/bootstrap/less/bootstrap";
+@import "elements";
+
+.view > dt {
+  font-weight: bold;
+}
+
+.navbar-inverse {
+  //.bw-gradient(#222222, 64, 34)
+}
+
+.navbar-brand {
+  position: relative;
+  padding: 15px 15px 15px 50px;
+}
+
+.panel {
+  color: @gray-dark;
+}
+
+/*.btn-info {
+  background-color: fadeout(#DD4814,10%);
+  border-color : #DD4814;
+  &:hover {
+    background-color: fadeout(#DD4814,20%);
+    border-color : fadeout(#DD4814,5%);
+  }
+}*/
+
+.tux {
+  position: absolute;
+  background-image: data-uri('tux.svg');
+  background-repeat: no-repeat;
+  width: 40px;
+  height: 35px;
+  top: 8px;
+  left: 0;
+}
+
+#EventList {
+
+  .loadMsg {
+    display: none;
+  }
+
+  &.loading {
+
+    .loadMsg {
+      margin-top: 15px;
+      display: block;
+    }
+
+  }
+
+  .accordion-heading {
+    position: relative;
+
+    button {
+      position: absolute;
+      top: 8px;
+      left: 175px;
+    }
+  }
+
+}
+
+.event {
+
+  table {
+
+    thead {
+      td {
+
+        font-size: 70%;
+        font-family: inherit;
+        color: #777;
+        text-transform: uppercase;
+
+      }
+    }
+
+    td {
+
+      vertical-align: top;
+      padding: 5px;
+      margin: 0 5px;
+      font-size: 85%;
+      font-family: Consolas, fixed;
+
+      &.nowrap {
+        white-space: nowrap;
+      }
+
+      &:nth-child(odd) {
+        background-color: #F0F8FF;
+      }
+
+      &.location {
+        cursor: pointer;
+      }
+
+      &.break {
+        display: none;
+      }
+
+    }
+
+  }
+
+  .small {
+    display: none;
+  }
+
+  @media only screen and (max-width: 675px) {
+    table {
+      width: 100%;
+      margin-bottom: 0;
+
+      td {
+
+        &.presenter,
+        &.description {
+          display: none;
+        }
+
+      }
+
+    }
+
+    .small {
+      display: block;
+      margin-bottom: 15px;
+
+      p {
+        font-size: 80%;
+        font-family: Consolas, fixed;
+        line-height: 1.3em;
+      }
+    }
+
+  }
+
+}
+
+.modal {
+
+  .modal-dialog {
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    overflow: visible;
+  }
+
+  .modal-dialog svg {
+    height: 100%;
+    width: 100%;
+  }
+
+}
+
+.custom-modal {
+  position: relative;
+  display: none;
+  padding: 10px;
+
+  .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+  #hotelmap {
+
+    width: 100%;
+
+    svg {
+      width: 100%;
+    }
+  }
+}
+
+body.mapopen {
+  .navbar {
+    margin-bottom: 0;
+  }
+  .custom-modal {
+    display: block;
+  }
+  #EventList {
+    display: none;
+  }
+}
