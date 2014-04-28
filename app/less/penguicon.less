@@ -52,13 +52,20 @@
 
   }
 
-  .accordion-heading {
+  .panel {
     position: relative;
 
-    button {
+    .panel-title {
+      cursor: default;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    button.byLocation {
       position: absolute;
-      top: 8px;
-      left: 175px;
+      top: 10px;
+      left: 180px;
     }
   }
 
