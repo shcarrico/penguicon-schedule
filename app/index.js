@@ -1,4 +1,4 @@
-require("bootstrap/dist/js/bootstrap.js");
+require("../resources/bootstrap/dist/js/bootstrap.js");
 var properties = require("properties.js");
 var state = require('state');
 

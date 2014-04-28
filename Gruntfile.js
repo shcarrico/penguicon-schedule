@@ -80,7 +80,7 @@ module.exports = function (grunt) {
 		},
 		watch: {
 			less: {
-				files: ['app/less/*.less'],
+				files: ['app/less/*.less', '*.svg', 'resources/bootstrap/less/**/*.less'],
 				tasks: ['less:dev'] //run this task when any of the matched files change
 			},
 			options: {
@@ -104,6 +104,13 @@ module.exports = function (grunt) {
 					hostname: "localhost",
 					port: "8000"
 				}
+			},
+			prodserver: {
+				options: {
+					hostname: "localhost",
+					port: "8000",
+					keepalive: true
+				}
 			}
 		},
 		//the clean task ensures stale artifacts don't hang around
@@ -119,6 +126,7 @@ module.exports = function (grunt) {
 
 	//these are custom tasks that use specific repo tasks
 	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod']);
-	grunt.registerTask('server', ['clean', 'connect', 'watch'])
+	grunt.registerTask('server', ['clean', 'connect:server', 'watch'])
+	grunt.registerTask('prodserver', ['connect:prodserver'])
 
 };

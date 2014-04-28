@@ -19,7 +19,7 @@
 
 @brand-primary: #428bca;
 @brand-success: #5cb85c;
-@brand-info: #5bc0de;
+@brand-info: #77216F;
 @brand-warning: #f0ad4e;
 @brand-danger: #d9534f;
 
@@ -28,9 +28,9 @@
 // ## Settings for some of the most global styles.
 
 //** Background color for `<body>`.
-@body-bg: #fff;
+@body-bg: #2C001E;
 //** Global text color on `<body>`.
-@text-color: @gray-dark;
+@text-color: @gray-lighter;
 
 //** Global textual link color.
 @link-color: @brand-primary;
@@ -82,7 +82,7 @@
 //
 //## Specify custom locations of the include Glyphicons icon font. Useful for those including Bootstrap via Bower.
 
-@icon-font-path: "../fonts/";
+@icon-font-path: "../../resources/bootstrap/fonts/";
 @icon-font-name: "glyphicons-halflings-regular";
 @icon-font-svg-id: "glyphicons_halflingsregular";
 
@@ -359,13 +359,13 @@
 
 // Inverted navbar
 // Reset inverted navbar basics
-@navbar-inverse-color: @gray-light;
-@navbar-inverse-bg: #222;
+@navbar-inverse-color: @gray-lighter;
+@navbar-inverse-bg: #5E2750;
 @navbar-inverse-border: darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
-@navbar-inverse-link-color: @gray-light;
-@navbar-inverse-link-hover-color: #fff;
+@navbar-inverse-link-color: @gray-lighter;
+@navbar-inverse-link-hover-color: lighten(#DD4814, 10%);
 @navbar-inverse-link-hover-bg: transparent;
 @navbar-inverse-link-active-color: @navbar-inverse-link-hover-color;
 @navbar-inverse-link-active-bg: darken(@navbar-inverse-bg, 10%);

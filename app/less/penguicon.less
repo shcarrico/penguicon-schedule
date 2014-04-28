@@ -1,22 +1,31 @@
-@import "../../bower_components/bootstrap/less/bootstrap";
+@import "../../resources/bootstrap/less/bootstrap";
 @import "elements";
-
-body {
-  background-color: fadeout(#77216F, 75%)
-}
 
 .view > dt {
   font-weight: bold;
 }
 
 .navbar-inverse {
-  .bw-gradient(#222222, 64, 34)
+  //.bw-gradient(#222222, 64, 34)
 }
 
 .navbar-brand {
   position: relative;
   padding: 15px 15px 15px 50px;
 }
+
+.panel {
+  color: @gray-dark;
+}
+
+/*.btn-info {
+  background-color: fadeout(#DD4814,10%);
+  border-color : #DD4814;
+  &:hover {
+    background-color: fadeout(#DD4814,20%);
+    border-color : fadeout(#DD4814,5%);
+  }
+}*/
 
 .tux {
   position: absolute;
@@ -135,13 +144,6 @@ body {
 
 .modal {
 
-  .close {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    z-index: 2;
-  }
-
   .modal-dialog {
     height: 100%;
     width: 100%;
@@ -156,32 +158,32 @@ body {
 
 }
 
-#hotelmap {
-  background: rgba(0,0,0,0.8);
+.custom-modal {
+  position: relative;
   display: none;
-  //height: 100%;
-  width: 100%;
-  position: static;
+  padding: 10px;
 
-  .close {
+  .btn-close {
     position: absolute;
-    top: 5px;
-    right: 5px;
-    color: #ccc;
-    cursor: pointer;
+    top: 10px;
+    right: 10px;
   }
-}
-#hotelmapcontainer {
-  //height: 100%;
-  width: 100%;
-}
-#hotelmapcontainer svg {
-  height: 80%;
-  width: 100%;
+
+  #hotelmap {
+
+    width: 100%;
+
+    svg {
+      width: 100%;
+    }
+  }
 }
 
 body.mapopen {
-  #hotelmap {
+  .navbar {
+    margin-bottom: 0;
+  }
+  .custom-modal {
     display: block;
   }
   #EventList {
