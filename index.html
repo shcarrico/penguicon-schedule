@@ -11,7 +11,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-static-top navbar-inverse">
+<nav class="navbar navbar-fixed-top navbar-inverse">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -21,8 +21,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-        <span class="navbar-brand">
-        <span class="tux" title="Penguicon 2014 Schedule"></span>&nbsp;Penguicon 2014</span>
+            <div class="navbar-brand">
+                <span class="tux" title="Penguicon 2014 Schedule"></span>&nbsp;Penguicon 2014
+            </div>
         </div>
         <div id="NavBar"></div>
     </div>
@@ -30,17 +31,6 @@
 
 <div class="container">
     <div id="EventList" class="col-md-12">
-        <div class="btn-group" data-toggle="buttons">
-            <label class="btn btn-default">
-                <input type="radio" name="viewBy" value="track">By Track
-            </label>
-            <label class="btn btn-default">
-                <input type="radio" name="viewBy" value="location">By Location
-            </label>
-            <label class="btn btn-default active">
-                <input type="radio" name="viewBy" value="startTime">Now
-            </label>
-        </div>
         <div class="alert alert-info loadMsg">Loading, please wait...</div>
         <div class="list"><h2 class="label label-info">App Initializing...</h2></div>
     </div>
@@ -48,7 +38,7 @@
 <!-- #main-container -->
 <div class="container-fluid custom-modal">
     <div id="hotelmap">
-    Loading...
+        Loading...
     </div>
     <button type="button" class="btn btn-info btn-sm btn-close" aria-hidden="true"><span
             class="glyphicon glyphicon-remove"></span></button>

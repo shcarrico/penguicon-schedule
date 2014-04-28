@@ -4,7 +4,7 @@ module.exports = can.Control.extend({
 
 	init: function () {
 		var state = this.options.state;
-		this.element.html(template({nodes: [
+		this.element.html(template({state : state, nodes: [
 			{
 				name: 'Friday',
 				route: 'friday'
@@ -18,16 +18,23 @@ module.exports = can.Control.extend({
 				route: 'sunday'
 			}
 		]}, {
-			isActive: function (day) {
-				return day === state.attr('day') ? "active" : "";
+			isActive: function () {
+                //console.log(this.route,this.route === state.attr('day') ? "active" : "")
+				return this.route === state.day ? "active" : "";
 			}
 		}));
 	},
 
-	".day click": function (el, ev) {
-		ev.preventDefault();
-		var day = el.attr('href').split('#')[1];
+	"input[name=day] change": function (el, ev) {
+		var day = el.val();
+        console.debug(day)
 		this.options.state.attr('day', day);
-	}
+	},
+
+
+    "input[name=viewBy] change": function (el, ev) {
+        var val = el.val();
+        this.options.state.attr('viewBy',val);
+    }
 
 });

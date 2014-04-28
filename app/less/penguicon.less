@@ -1,17 +1,24 @@
 @import "../../resources/bootstrap/less/bootstrap";
 @import "elements";
 
-.view > dt {
-  font-weight: bold;
+
+body {
+  margin-top: 55px;
 }
 
-.navbar-inverse {
-  //.bw-gradient(#222222, 64, 34)
+.view > dt {
+  font-weight: bold;
 }
 
 .navbar-brand {
   position: relative;
   padding: 15px 15px 15px 50px;
+}
+
+#NavBar {
+  .infotext {
+    text-transform: capitalize;
+  }
 }
 
 .panel {
@@ -75,6 +82,7 @@
 
   .lead {
     font-weight: bold;
+    margin-bottom: 2px;
   }
 
   .star {
@@ -164,10 +172,10 @@
 .custom-modal {
   position: fixed;
   width: 100%;
-  height: 100%;
+  height: 90%;
   display: none;
   padding: 0;
-  top: 0;
+  top: 51px;
   left: 0;
   z-index: 1001;
   background-color: #000;

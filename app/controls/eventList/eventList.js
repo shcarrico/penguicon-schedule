@@ -210,11 +210,6 @@ module.exports = can.Control({
 	"{viewBy} change": "updateView",
 	"{day} change": "updateView",
 
-	"input[name=viewBy] change": function (el, ev) {
-		var val = el.val();
-		this.options.viewBy(val);
-	},
-
 	"button.showmap click": function (el) {
 		$('body').addClass('mapopen');
 		this.highlightMap(el.data().location);
@@ -222,10 +217,14 @@ module.exports = can.Control({
 	},
 
 	"{state} change": function (state, ev, property, operation, newVal) {
-		if (property === "day") {
-			//console.log('day change', newVal)
-			this.options.day(newVal);
-		}
+		switch(property){
+            case "day":
+                this.options.day(newVal);
+                break;
+            case "viewBy":
+                this.options.viewBy(newVal);
+                break;
+        }
 	},
 
 	".panel-group shown.bs.collapse": function (el, ev) {

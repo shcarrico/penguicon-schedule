@@ -1,7 +1,27 @@
 <div class="collapse navbar-collapse navbar-right" id="collapse">
     <ul class="nav navbar-nav">
-        {{#nodes}}
-            <li><a href="#{{{route}}}" class="day {{isActive route}}">{{name}}</a></li>
-        {{/nodes}}
+        <li>
+        <div class="btn-group" data-toggle="buttons">
+            {{#nodes}}
+                <label class="btn btn-primary navbar-btn {{isActive}}">
+                    <input type="radio" name="day" value="{{{route}}}">{{name}}
+                </label>
+            {{/nodes}}
+        </div>
+    </li>
+        <li class="divider">&nbsp;&nbsp;&nbsp;</li>
+        <li>
+        <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-default btn-sm navbar-btn">
+                <input type="radio" name="viewBy" value="track">By Track
+            </label>
+            <label class="btn btn-default btn-sm navbar-btn">
+                <input type="radio" name="viewBy" value="location">By Location
+            </label>
+            <label class="btn btn-default btn-sm active navbar-btn">
+                <input type="radio" name="viewBy" value="startTime">Now
+            </label>
+        </div>
+        </li>
     </ul>
 </div>

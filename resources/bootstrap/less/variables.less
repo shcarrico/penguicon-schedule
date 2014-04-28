@@ -17,7 +17,7 @@
 @gray-lighter: lighten(#000, 93.5%);
 // #eee
 
-@brand-primary: #428bca;
+@brand-primary: desaturate(#dd4814,10%);
 @brand-success: #5cb85c;
 @brand-info: #77216F;
 @brand-warning: #f0ad4e;
@@ -146,8 +146,8 @@
 @btn-font-weight: normal;
 
 @btn-default-color: #333;
-@btn-default-bg: #fff;
-@btn-default-border: #ccc;
+@btn-default-bg: #AEA79F;
+@btn-default-border: darken(@btn-default-bg,20%);
 
 @btn-primary-color: #fff;
 @btn-primary-bg: @brand-primary;
@@ -365,7 +365,7 @@
 
 // Inverted navbar links
 @navbar-inverse-link-color: @gray-lighter;
-@navbar-inverse-link-hover-color: lighten(#DD4814, 10%);
+@navbar-inverse-link-hover-color: @gray-light;
 @navbar-inverse-link-hover-bg: transparent;
 @navbar-inverse-link-active-color: @navbar-inverse-link-hover-color;
 @navbar-inverse-link-active-bg: darken(@navbar-inverse-bg, 10%);

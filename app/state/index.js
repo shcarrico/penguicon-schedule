@@ -1,3 +1,4 @@
 module.exports = new can.Map({
-	day: 'friday'
+	day: 'friday',
+    viewBy : 'startTime'
 });
