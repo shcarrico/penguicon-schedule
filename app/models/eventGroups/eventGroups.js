@@ -1,5 +1,6 @@
 var Events = require("models/events/events.js");
 var def = $.Deferred();
+var moment = require('moment');
 
 Events.done(function (events) {
 
@@ -24,6 +25,15 @@ Events.done(function (events) {
 
     data.startTimes = {};
 
+    function timeSort(a,b){
+        var dateFormat = "M/D/YYYY H:mm Z";
+        var am = moment(a + " -0400",dateFormat);
+        var bm = moment(b + " -0400",dateFormat);
+
+        return am.isBefore(bm) ? -1 : 1;
+
+    }
+
 	_.forEach(days, function (events, day) {
 		data.day[day] = {};
 		data.day[day].events = events;
@@ -33,7 +43,7 @@ Events.done(function (events) {
 		data.day[day].name = names[day];
         data.startTimes[day] =  _.unique(_.map(events, function (evt) {
             return evt.start_date + " " + evt.start_time
-        })).sort();
+        })).sort(timeSort);
 	});
 
 	data.days = _.keys(data.day);
@@ -42,7 +52,7 @@ Events.done(function (events) {
 	data.tracks = _.unique(_.map(events, "track")).sort();
 	data.allStartTimes = _.unique(_.map(events, function (evt) {
 		return evt.start_date + " " + evt.start_time
-	})).sort();
+	})).sort(timeSort);
 
 	data.byStartTime = _.groupBy(events, function (evt) {
 		return evt.start_date + " " + evt.start_time
