@@ -22,22 +22,28 @@ Events.done(function (events) {
 		day: {}
 	};
 
+    data.startTimes = {};
+
 	_.forEach(days, function (events, day) {
 		data.day[day] = {};
 		data.day[day].events = events;
 		data.day[day].byLocation = _.groupBy(events, "location");
 		data.day[day].byTrack = _.groupBy(events, "track");
-		data.day[day].byTime = _.groupBy(events, "start_time");
+		data.day[day].byStartTime = _.groupBy(events, "start_time");
 		data.day[day].name = names[day];
+        data.startTimes[day] =  _.unique(_.map(events, function (evt) {
+            return evt.start_date + " " + evt.start_time
+        })).sort();
 	});
 
 	data.days = _.keys(data.day);
 	data.names = names;
 	data.locations = _.unique(_.map(events, "location")).sort();
 	data.tracks = _.unique(_.map(events, "track")).sort();
-	data.startTimes = _.unique(_.map(events, function (evt) {
+	data.allStartTimes = _.unique(_.map(events, function (evt) {
 		return evt.start_date + " " + evt.start_time
 	})).sort();
+
 	data.byStartTime = _.groupBy(events, function (evt) {
 		return evt.start_date + " " + evt.start_time
 	});

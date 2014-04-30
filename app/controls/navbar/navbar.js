@@ -27,7 +27,6 @@ module.exports = can.Control.extend({
 
 	"input[name=day] change": function (el, ev) {
 		var day = el.val();
-        console.debug(day)
 		this.options.state.attr('day', day);
 	},
 
