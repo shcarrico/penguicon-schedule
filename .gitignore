@@ -12,7 +12,6 @@ pids
 logs
 results
 production
-build
 
 npm-debug.log
 

@@ -5,12 +5,13 @@ var webpackDevMiddleware = require("webpack-dev-middleware");
 
 module.exports = function (grunt) {
 	grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
 		webpack: {
 			options: webpackConfig,
 			prod: {
 				output: {
 					path: "build/",
-					filename: "[name].js"
+					filename: "[name]-<%= pkg.version %>.js"
 				},
 				plugins: webpackConfig.plugins.concat(
 					new webpack.DefinePlugin({
@@ -49,7 +50,7 @@ module.exports = function (grunt) {
 					cleancss: true //compress CSS output
 				},
 				files: {
-					"build/index.css": "app/less/*.less"
+					"build/index-<%= pkg.version %>.css": "app/less/*.less"
 				}
 			}
 		},
@@ -113,7 +114,18 @@ module.exports = function (grunt) {
 			}
 		},
 		//the clean task ensures stale artifacts don't hang around
-		clean: ['build']
+		clean: ['build'],
+        replace: {
+            index : {
+                src: ['index.html'],
+                dest : 'build/',
+                //overwrite: true, // overwrite matched source files
+                replacements: [{
+                    from: /(build\/index)/g,
+                    to: "$1-<%= pkg.version %>"
+                }]
+            }
+        }
 	});
 
 	//these are repository tasks we are using above
@@ -122,9 +134,10 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-contrib-less');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-text-replace');
 
 	//these are custom tasks that use specific repo tasks
-	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod']);
+	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod', 'replace:index']);
 	grunt.registerTask('server', ['clean', 'connect:server', 'watch']);
 
 	grunt.registerTask('prodserver', ['connect:prodserver'])
