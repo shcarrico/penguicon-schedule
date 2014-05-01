@@ -1,6 +1,7 @@
 CACHE MANIFEST
 # version=
 # modified
+index.html
 build/index.js
 build/index.css
 2014.penguicon.schedule.json
