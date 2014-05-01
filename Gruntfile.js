@@ -147,7 +147,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-text-replace');
 
 	//these are custom tasks that use specific repo tasks
-	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod', 'replace:index']);
+	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod', 'replace']);
 	grunt.registerTask('server', ['clean', 'connect:server', 'watch']);
 
 	grunt.registerTask('prodserver', ['connect:prodserver'])
