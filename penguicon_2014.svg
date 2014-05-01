@@ -1575,6 +1575,7 @@
          x="0" />
     </g>
     <rect
+       class="svgdebugging"
        style="fill:#ffffff;fill-opacity:1"
        id="rect3258"
        width="12.142858"
