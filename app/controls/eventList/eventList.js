@@ -78,6 +78,7 @@ module.exports = can.Control({
             "Charlevoix B": "charlevoix_b",
             "Charlevoix C": "charlevoix_c",
             "Gaming (Restaurant)": "tc_linguinis",
+            "Gaming [Restaurant]": "tc_linguinis",
             "Hamlin": "hamlin",
             "Montcalm": "montcalm",
             "Nicolet": "nicolet",
