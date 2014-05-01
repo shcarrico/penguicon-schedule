@@ -119,10 +119,20 @@ module.exports = function (grunt) {
             index : {
                 src: ['index.html'],
                 dest : 'build/',
-                //overwrite: true, // overwrite matched source files
                 replacements: [{
                     from: /(build\/index)/g,
                     to: "$1-<%= pkg.version %>"
+                }]
+            },
+            manifest : {
+                src: ['cache.manifest'],
+                dest : 'build/',
+                replacements: [{
+                    from: /(build\/index)/g,
+                    to: "$1-<%= pkg.version %>"
+                },{
+                    from : /(version=)/g,
+                    to : "$1<%= pkg.version %>"
                 }]
             }
         }
