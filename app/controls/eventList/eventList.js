@@ -166,8 +166,10 @@ module.exports = can.Control({
                                         }
                                     },
                                     showLocation: function (location) {
-                                        if (self.options.viewBy() != 'location') {
+                                        if (self.options.viewBy() != 'location' && self.options.places.hasOwnProperty(location)) {
                                             return '<td class="location nowrap"><button data-location="' + location + '" class="showmap btn btn-xs btn-info">' + location + '</button></td>';
+                                        } else {
+                                            return '<td class="location nowrap">'+location+'</td>';
                                         }
                                     },
                                     showTrackHeader: function () {
