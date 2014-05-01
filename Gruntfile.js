@@ -122,6 +122,9 @@ module.exports = function (grunt) {
                 replacements: [{
                     from: /(build\/index)/g,
                     to: "$1-<%= pkg.version %>"
+                },{
+                    from : /\<html\>/,
+                    to : '<html manifest="cache.manifest">'
                 }]
             },
             manifest : {
@@ -133,9 +136,6 @@ module.exports = function (grunt) {
                 },{
                     from : /(version=)/g,
                     to : "$1<%= pkg.version %>"
-                },{
-                    from : /\<html\>/,
-                    to : '<html manifest="cache.manifest">'
                 }]
             }
         }
