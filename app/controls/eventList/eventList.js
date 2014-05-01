@@ -4,6 +4,58 @@ var viewByTpl = require("./viewby.mustache");
 var eventTpl = require("./event.mustache");
 var moment = require("moment");
 
+function getStarStorage() {
+    function supportsStorage() {
+        try {
+            return 'localStorage' in window && window['localStorage'] !== null;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function getStarred() {
+        return JSON.parse(localStorage.getItem('starred'));
+    }
+
+    if (supportsStorage()) {
+        return {
+            get: function (id) {
+                var starred = getStarred();
+                if (starred) {
+                    return starred.indexOf(id) !== -1
+                }
+            },
+            put: function (id) {
+                var starred = getStarred();
+                if (starred && (starred.indexOf(id) !== -1)) {
+                    starred.push(id);
+                    return true;
+                }
+            },
+            del: function (id) {
+                var starred = getStarred();
+                if (starred && (starred.indexOf(id) !== -1)) {
+                    starred.splice(starred.indexOf(id), 1);
+                    return true;
+                }
+            }
+        }
+    } else {
+        return {
+            get: function () {
+                //noop
+            },
+            put: function () {
+                //noop
+            },
+            del: function () {
+                //noop
+            }
+        }
+    }
+
+}
+
 can.Mustache.registerHelper("fmtTime", function (timeStr) {
     if (timeStr == '') {
         return 'All Day';
@@ -83,6 +135,7 @@ module.exports = can.Control({
             viewBy = self.options.viewBy();
             appDay = dayMap[self.options.day()];
 
+
             var frag = eventListTpl({date: [appDay]}, {
 
                 getHeading: function (dayStr) {
@@ -110,19 +163,18 @@ module.exports = can.Control({
                     var firstMoment;
 
                     if (viewBy == 'now') {
+                        //nowMoment = moment('5/2/2014 16:00 -0500',dateFormat);
                         nowMoment = moment();
-                        firstMoment = moment(data.startTimes[dayStr][0] + " -0400",dateFormat);
-                        viewByData = _.filter(data.startTimes[dayStr], function (groupTime) {
+                        firstMoment = moment(data.day[dayStr].startTimes[0] + " -0400", dateFormat);
+                        viewByData = _.filter(data.day[dayStr].startTimes, function (groupTime) {
                             var groupTimeMoment = moment(groupTime + " -0400", dateFormat);
                             return nowMoment.isAfter(firstMoment) && groupTimeMoment.diff(nowMoment, 'minutes') >= -50;
                         });
                         viewByData.length = Math.min(viewByData.length, 3);
 
-                    } else if (viewBy == 'startTime') {
-                        viewByData = data[viewBy + 's'][dayStr];
                     }
                     else {
-                        viewByData = data[viewBy + 's'];
+                        viewByData = data.day[dayStr][viewBy + 's'];
                     }
 
                     return viewByTpl.render({view: viewByData}, {
@@ -161,32 +213,31 @@ module.exports = can.Control({
                             return eventTpl.render({evt: events},
                                 {
                                     showLocationHeader: function () {
-                                        if (self.options.viewBy() != 'location') {
+                                        if (viewBy != 'location') {
                                             return '<td class="head">Location</td>';
                                         }
                                     },
                                     showLocation: function (location) {
-                                        if (self.options.viewBy() != 'location' && self.options.places.hasOwnProperty(location)) {
-                                            return '<td class="location nowrap"><button data-location="' + location + '" class="showmap btn btn-xs btn-info">' + location + '</button></td>';
-                                        } else {
-                                            return '<td class="location nowrap">'+location+'</td>';
+                                        if (viewBy != 'location') {
+                                            if (self.options.places.hasOwnProperty(location)) {
+                                                return '<td class="location nowrap"><button data-location="' + location + '" class="showmap btn btn-xs btn-info">' + location + '</button></td>';
+                                            } else {
+                                                return '<td class="location nowrap">' + location + '</td>';
+                                            }
                                         }
                                     },
                                     showTrackHeader: function () {
-                                        if (self.options.viewBy() != 'track') {
+                                        if (viewBy != 'track') {
                                             return '<td class="head">Track</td>';
                                         }
                                     },
                                     showTrack: function (track) {
-                                        if (self.options.viewBy() != 'track') {
+                                        if (viewBy != 'track') {
                                             return '<td class="nowrap">' + track + '</td>';
                                         }
                                     },
-                                    getPresenters: function () {
-                                        return this.presenters;
-                                    },
-                                    getDescription: function () {
-                                        return this.description;
+                                    getStarred: function () {
+
                                     }
 
                                 })

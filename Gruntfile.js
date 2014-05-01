@@ -114,25 +114,28 @@ module.exports = function (grunt) {
 			}
 		},
 		//the clean task ensures stale artifacts don't hang around
-		clean: ['build'],
+		clean: ['build','cache.manifest','index.html'],
         replace: {
             index : {
-                src: ['index.html'],
-                dest : 'build/',
+                src: ['index-dev.html'],
+                dest : 'index.html',
                 replacements: [{
                     from: /(build\/index)/g,
                     to: "$1-<%= pkg.version %>"
                 }]
             },
             manifest : {
-                src: ['cache.manifest'],
-                dest : 'build/',
+                src: ['cache-dev.manifest'],
+                dest : 'cache.manifest',
                 replacements: [{
                     from: /(build\/index)/g,
                     to: "$1-<%= pkg.version %>"
                 },{
                     from : /(version=)/g,
                     to : "$1<%= pkg.version %>"
+                },{
+                    from : /\<html\>/,
+                    to : '<html manifest="cache.manifest">'
                 }]
             }
         }
@@ -147,7 +150,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-text-replace');
 
 	//these are custom tasks that use specific repo tasks
-	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod', 'replace']);
+	grunt.registerTask('default', ['clean', 'webpack:prod', 'less:prod']);
 	grunt.registerTask('server', ['clean', 'connect:server', 'watch']);
 
 	grunt.registerTask('prodserver', ['connect:prodserver'])

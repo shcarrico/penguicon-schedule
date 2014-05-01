@@ -1,13 +1,15 @@
 CACHE MANIFEST
-# version=1.4.0
-build/index-1.4.0.js
-build/index-1.4.0.css
+# version=
+# modified
+build/index.js
+build/index.css
 2014.penguicon.schedule.json
 penguicon_2014.svg
 
 NETWORK:
 index.html
 *.map
+index.js
+index.css
 
 FALLBACK:
-index.html
