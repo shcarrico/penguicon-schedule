@@ -188,10 +188,12 @@ module.exports = can.Control({
                         //nowMoment = moment('5/2/2014 16:00 -0500',dateFormat);
                         nowMoment = moment();
                         firstMoment = moment(data.day[dayStr].startTimes[0] + " -0400", dateFormat);
+                        // get a list of things that start after the current time
                         viewByData = _.filter(data.day[dayStr].startTimes, function (groupTime) {
                             var groupTimeMoment = moment(groupTime + " -0400", dateFormat);
-                            return nowMoment.isAfter(firstMoment) && groupTimeMoment.diff(nowMoment, 'minutes') >= -50;
+                            return groupTimeMoment.diff(nowMoment, 'minutes') >= -50;
                         });
+                        // only get the first 3 time blocks after the current
                         viewByData.length = Math.min(viewByData.length, 3);
 
                     }
