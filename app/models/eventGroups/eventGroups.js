@@ -66,10 +66,12 @@ Events.done(function (events) {
 		data.day[day].events = events;
 		data.day[day].byLocation = _.groupBy(events, "location");
 		data.day[day].byTrack = getMultiGroupBy(events, 'track');
+		data.day[day].byPresenter = getMultiGroupBy(events, "presenters");
 		data.day[day].byStartTime = _.groupBy(events, "start_time");
 		data.day[day].name = names[day];
         data.day[day].tracks = _.keys(data.day[day].byTrack).sort();
         data.day[day].locations = _.keys(data.day[day].byLocation).sort();
+        data.day[day].presenters = _.keys(data.day[day].byPresenter).sort();
         data.day[day].startTimes =  _.unique(_.map(events, function (evt) {
             return evt.start_date + " " + evt.start_time
         })).sort(timeSort);
