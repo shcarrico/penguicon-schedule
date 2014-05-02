@@ -91,7 +91,7 @@ module.exports = can.Control({
 }, {
     init: function () {
         var self = this;
-        this.options.viewBy = can.compute('startTime');
+        this.options.viewBy = can.compute('now');
         this.options.day = can.compute('friday');
 
         this.on();
