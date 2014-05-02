@@ -101,6 +101,7 @@ module.exports = can.Control({
         });
 
         $('body').click(function (ev, el) {
+            // click outside the svg
             if (!$(ev.target).parents('svg').length) {
                 if ($(this).hasClass('mapopen')) {
                     $('body').removeClass('mapopen');
@@ -108,6 +109,11 @@ module.exports = can.Control({
                         history.back()
                     }
                 }
+            }
+            // click outside the navbar
+            if (!$(ev.target).parents('.navbar').length) {
+                $('.navbar-collapse').removeClass('in');
+                $('.navbar-toggle').addClass('collapsed');
             }
         });
         $(window).on('popstate', function (ev) {
@@ -117,6 +123,10 @@ module.exports = can.Control({
             } else {
                 $('body').removeClass('mapopen');
             }
+        });
+        $(window).on('scroll', function (ev) {
+            $('.navbar-collapse').removeClass('in');
+            $('.navbar-toggle').addClass('collapsed');
         });
 
         this.updateView();
