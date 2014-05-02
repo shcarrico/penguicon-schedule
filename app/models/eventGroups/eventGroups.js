@@ -37,19 +37,22 @@ Events.done(function (events) {
         return am.isBefore(bm) ? -1 : 1;
     }
 
-    function getTrackGroupBy (events){
+    function getMultiGroupBy (events, key){
 
         var grouped = {};
 
         _.forEach(events,function(event){
 
-            var tracks = event.track.split(',');
+            var groupingdata = event[key];
+            if (typeof groupingdata === 'string') {
+                groupingdata = groupingdata.split(',');
+            }
 
-            _.forEach(tracks,function(track){
-                if(!grouped[track]){
-                    grouped[track] = [];
+            _.forEach(groupingdata,function(name){
+                if(!grouped[name]){
+                    grouped[name] = [];
                 }
-                grouped[track].push(event);
+                grouped[name].push(event);
             });
 
         });
@@ -62,7 +65,7 @@ Events.done(function (events) {
 		data.day[day] = {};
 		data.day[day].events = events;
 		data.day[day].byLocation = _.groupBy(events, "location");
-		data.day[day].byTrack = getTrackGroupBy(events);
+		data.day[day].byTrack = getMultiGroupBy(events, 'track');
 		data.day[day].byStartTime = _.groupBy(events, "start_time");
 		data.day[day].name = names[day];
         data.day[day].tracks = _.keys(data.day[day].byTrack).sort();
