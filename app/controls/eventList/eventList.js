@@ -104,7 +104,18 @@ module.exports = can.Control({
             if (!$(ev.target).parents('svg').length) {
                 if ($(this).hasClass('mapopen')) {
                     $('body').removeClass('mapopen');
+                    if (history.state && history.state.type == 'showmap') {
+                        history.back()
+                    }
                 }
+            }
+        });
+        $(window).on('popstate', function (ev) {
+            // If ev.state == 'showmap', we are going forward
+            if (ev.originalEvent.state && ev.originalEvent.state.type == 'showmap') {
+                $('body').addClass('mapopen');
+            } else {
+                $('body').removeClass('mapopen');
             }
         });
 
@@ -283,6 +294,7 @@ module.exports = can.Control({
     "button.showmap click": function (el) {
         $('body').addClass('mapopen');
         this.highlightMap(el.data().location);
+        history.pushState({type: 'showmap'}, 'Penguicon 2014 Map', '');
         return false;
     },
 
