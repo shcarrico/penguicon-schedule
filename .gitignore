@@ -12,6 +12,7 @@ pids
 logs
 results
 production
+stan-carrico
 
 npm-debug.log
 
